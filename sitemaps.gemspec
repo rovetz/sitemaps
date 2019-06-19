@@ -29,5 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard', '~> 0.9.11'
   spec.add_development_dependency 'simplecov', '~> 0.16'
 
-  spec.add_runtime_dependency 'activesupport', '~> 4'
+  spec.add_runtime_dependency 'activesupport',
+    (ENV['ACTIVESUPPORT_VERSION'] || ['>= 4', '< 7'])
 end
