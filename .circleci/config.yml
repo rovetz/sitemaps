@@ -5,7 +5,7 @@ executors:
     working_directory: ~/sitemaps
 
     docker:
-      - image: circleci/ruby:${RUBY_VERSION}
+      - image: cimg/ruby:${RUBY_VERSION}
 
 jobs:
   build:
@@ -18,7 +18,6 @@ jobs:
         type: string
       activesupport_version:
         type: string
-        default: '~> 5.0'
     steps:
       - checkout
 
@@ -52,24 +51,16 @@ workflows:
   build_and_test:
     jobs:
       - build:
-          name: 'ruby 2.3.8'
-          ruby_version: 2.3.8
-      - build:
-          name: 'ruby 2.4.6'
-          ruby_version: 2.4.6
-      - build:
-          name: 'ruby 2.5.5'
-          ruby_version: 2.5.5
-      - build:
-          name: 'ruby 2.6.3, activesupport 4'
-          ruby_version: 2.6.3
-          activesupport_version: '4.0.0'
-      - build:
-          name: 'ruby 2.6.3, activesupport 5'
-          ruby_version: 2.6.3
-          activesupport_version: '~> 5.0'
-      - build:
-          name: 'ruby 2.6.3, activesupport 6'
-          ruby_version: 2.6.3
-          activesupport_version: '6.0.0.rc1'
-
+          name: "Ruby << matrix.ruby_version >>, Active Support << matrix.activesupport_version >>"
+          matrix:
+            parameters:
+              ruby_version:
+                - 2.5.8
+                - 2.6.7
+                - 2.7.1
+              activesupport_version:
+                - 4.2.11.3
+                - 5.1.7
+                - 5.2.6
+                - 6.0.3.7
+                - 6.1.3.2
