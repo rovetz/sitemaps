@@ -30,5 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'simplecov', '~> 0.16'
 
   spec.add_runtime_dependency 'activesupport',
-    (ENV['ACTIVESUPPORT_VERSION'] || ['>= 4', '< 7'])
+    (ENV['ACTIVESUPPORT_VERSION'] || ['>= 4', '< 8'])
 end
