@@ -25,7 +25,14 @@ module Sitemaps
       end
 
       until attempts >= @max_attempts
-        resp = Net::HTTP.get_response(uri)
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+        request = Net::HTTP::Get.new(uri.request_uri)
+
+        resp = http.request(request)
+        
+        # resp = Net::HTTP.get_response(uri)
 
         # on a good 2xx response, return the body
         if resp.code.to_s =~ /2\d\d/
